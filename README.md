@@ -16,7 +16,7 @@ A modern VS Code extension to integrate with Gitea repositories, allowing you to
 - Timeline view showing events for issues and pull requests
 - VS Code theme-aware UI components
 
-## Configuration
+## Configuration(User Configuration)
 
 Add the following settings to your VS Code User settings(or simply open extension page, click on the settings icon and fill in the required text fields):
 
@@ -25,6 +25,34 @@ Add the following settings to your VS Code User settings(or simply open extensio
   "gitea.instanceURL": "[Your server instance address]",
   "gitea.owner": "[Owner of the gitea repo]",
   "gitea.repo": "[Repo name]",
+  "gitea.token": "[Access token for the user]",
+  "gitea.allowInsecureTLS": "[true if your gitea server use self signed certificate]"
+}
+```
+
+## Configuration(Project Configuration)
+
+> Do not write your token in the `.vscode/settings.json` if you upload `.vscode` folder to public git repository
+
+1. Add the following settings to your `.vscode/settings.json`:
+
+```json
+{
+  "gitea.instanceURL": "[Your server instance address]",
+  "gitea.owner": "[Owner of the gitea repo]",
+  "gitea.repo": "[Repo name]",
+  "gitea.allowInsecureTLS": "[true if your gitea server use self signed certificate]"
+}
+```
+
+2. Add the following settings to your
+
+- window: `%APPDATA%\Code\User\settings.json`
+- mac: `$HOME/Library/Application Support/Code/User/settings.json`
+- linux: `$HOME/.config/Code/User/settings.json`
+
+```json
+{
   "gitea.token": "[Access token for the user]"
 }
 ```
