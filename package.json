@@ -142,6 +142,11 @@
         "gitea.token": {
           "type": "string",
           "description": "Gitea API token"
+        },
+        "gitea.allowInsecureTLS": {
+          "type": "boolean",
+          "description": "Allow insecure TLS connections (self-signed certificates)",
+          "default": false
         }
       }
     }

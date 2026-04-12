@@ -25,6 +25,7 @@ import {
   EditReactionOption,
   // @ts-ignore
 } from "../types/_types";
+import * as https from "https";
 
 export class GiteaService {
   private client: AxiosInstance;
@@ -38,6 +39,8 @@ export class GiteaService {
   private createClient(): AxiosInstance {
     const instanceURL = this.config.get<string>("instanceURL");
     const token = this.config.get<string>("token");
+    const allowInsecureTLS = this.config.get<boolean>("allowInsecureTLS");
+    let httpsAgent;
 
     if (!instanceURL) {
       throw new Error("Gitea instance URL not configured");
@@ -47,13 +50,22 @@ export class GiteaService {
       throw new Error("Gitea token not configured");
     }
 
-    return axios.create({
+    if (allowInsecureTLS) {
+      httpsAgent = new https.Agent({
+        rejectUnauthorized: false,
+      });
+    }
+
+    const axiosConfig = {
       baseURL: `${instanceURL}/api/v1`,
       headers: {
         Authorization: `token ${token}`,
         "Content-Type": "application/json",
       },
-    });
+      httpsAgent,
+    };
+
+    return axios.create(axiosConfig);
   }
 
   private getRepoPath(): string {
